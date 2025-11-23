@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+venv/
+*.csv
+eda_report.txt
+model_benchmark_results.csv
