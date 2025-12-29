@@ -177,3 +177,19 @@ AWS-ClimateML/
 MIT License — Open for academic and educational use.
 
 ### Built by Ranak Ghosh.
+
+### 🖊️ Citation
+If you use this code or methodology in your research, please cite it as follows:
+
+> **Ghosh, R.** (2025). *CloudClimateML: A Scalable Framework for Australian Climate Prediction*. GitHub Repository.
+
+**BibTeX:**
+```bibtex
+@misc{ghosh2025cloudclimate,
+  author = {Ghosh, Ranak},
+  title = {CloudClimateML: A Scalable Framework for Australian Climate Prediction},
+  year = {2025},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\url{[https://github.com/YOUR_USERNAME/AWS-ClimateML](https://github.com/YOUR_USERNAME/AWS-ClimateML)}}
+}
