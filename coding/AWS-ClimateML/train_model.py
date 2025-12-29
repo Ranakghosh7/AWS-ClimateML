@@ -1,21 +1,32 @@
-import pandas as pd
+import pickle
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-import pickle
+from sklearn.metrics import accuracy_score
+from preprocess import preprocess_data
 
-# Example dataset (replace with real one later)
-data = pd.read_csv("rainfall.csv")
+DATA_PATH = "data/weatherAUS.csv"
 
-X = data.drop("RainTomorrow", axis=1)
-y = data["RainTomorrow"]
+df = preprocess_data(DATA_PATH)
+
+X = df.drop("RainTomorrow", axis=1)
+y = df["RainTomorrow"]
 
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
 
-model = RandomForestClassifier(n_estimators=100)
+model = RandomForestClassifier(
+    n_estimators=200,
+    max_depth=12,
+    random_state=42
+)
+
 model.fit(X_train, y_train)
 
-pickle.dump(model, open("model/model.pkl", "wb"))
+preds = model.predict(X_test)
+accuracy = accuracy_score(y_test, preds)
 
-print("Model trained and saved")
+print(f"Model Accuracy: {accuracy:.3f}")
+
+with open("model/model.pkl", "wb") as f:
+    pickle.dump(model, f)

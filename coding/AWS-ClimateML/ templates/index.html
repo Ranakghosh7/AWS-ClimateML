@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Weather App</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            width: 70%;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            background-color: #ff9800;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover { background-color: #e68900; }
+        #result { margin-top: 20px; font-size: 1.2rem; }
+        .temp { font-size: 3rem; font-weight: bold; margin: 10px 0; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>🌍 Real-Time Weather</h2>
+        <form id="weatherForm">
+            <input type="text" id="cityInput" placeholder="Enter City (e.g. Rome)" required>
+            <button type="submit">Search</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('weatherForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const city = document.getElementById('cityInput').value;
+            const resultDiv = document.getElementById('result');
+            
+            resultDiv.innerHTML = "Loading...";
+
+            // Send data to Python backend
+            const formData = new FormData();
+            formData.append('city', city);
+
+            const response = await fetch('/get_weather', {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (data.error) {
+                resultDiv.innerHTML = "❌ " + data.error;
+            } else {
+                resultDiv.innerHTML = `
+                    <div>${data.city}, ${data.country}</div>
+                    <div class="temp">${data.temperature}°C</div>
+                    <div>Wind: ${data.windspeed} km/h</div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
