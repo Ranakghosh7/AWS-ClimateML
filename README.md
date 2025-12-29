@@ -157,6 +157,8 @@ To validate the choice of Random Forest, we benchmarked it against standard base
 
 * **Geography:** Data is limited to the Australian climate context.
 
+  ![Image](https://github.com/user-attachments/assets/b0bf4b57-5a19-4d96-b24b-082941c34935)
+
 ### 10. Future Directions
 Next phases of research include:
 
